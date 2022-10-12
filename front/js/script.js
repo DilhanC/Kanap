@@ -1,14 +1,14 @@
 fetch("http://localhost:3000/api/products")
     .then((res) => res.json())
     .then((kanaps) => renderHome(kanaps))
-	.catch((err) => console.log(err))
+	  .catch((err) => console.log(err))
 
 function renderHome(kanaps) {
   kanaps.forEach(kanaps => {
     const {_id, imageUrl, altTxt, name, description} = kanaps
 
     const anchor = document.createElement("a")
-    anchor.href = "./product.html?id="+ _id
+    anchor.href = "/html/product.html?id="+ _id
 
     const article = document.createElement("article")
 
@@ -34,6 +34,13 @@ function renderHome(kanaps) {
     }
   })
 }
+    
+
+
+
+
+
+
 
 // fetch("http://localhost:3000/api/products")
 //     .then((res) => res.json())

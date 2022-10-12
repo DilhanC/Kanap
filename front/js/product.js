@@ -46,6 +46,31 @@ function renderProductPage(kanap) {
 		});
 }
 
+// Evennement "click"
+const button = document.querySelector("#addToCart")
+button.addEventListener("click", () => {
+	const color = document.querySelector("#colors").value
+	const quantity = document.querySelector("#quantity").value
+	if (color == null || color === "" || quantity == null || quantity == 0) {
+		alert("Veuillez selectionner une couleur ET une quantité pour ajouter le/les produits dans le panier")
+	}
+	// Add to localStorage
+	const data = {
+		id: productId,
+		color: color,
+		quantity: quantity,
+	}
+	localStorage.setItem(productId, JSON.stringify(data))
+
+})
+
+
+
+
+
+
+
+
 // const queryString = new URLSearchParams(window.location.search);
 // const productId = queryString.get("id");
 
