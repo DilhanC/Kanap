@@ -40,10 +40,10 @@ function renderProductPage(kanap) {
 		}
 
 		// Listening CLICK on cart button
-		const cartBtn = document.getElementById("addToCart");
-		cartBtn.addEventListener('click', function(event) {
-			console.log('clicked');
-		});
+		// const cartBtn = document.getElementById("addToCart");
+		// cartBtn.addEventListener('click', function(event) {
+		// 	console.log('clicked');
+		// });
 }
 
 // Evennement "click"
@@ -61,7 +61,6 @@ button.addEventListener("click", () => {
 		quantity: quantity,
 	}
 	localStorage.setItem(productId, JSON.stringify(data))
-
 })
 
 
