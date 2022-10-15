@@ -61,9 +61,15 @@ button.addEventListener("click", () => {
 		quantity: quantity,
 	}
 	localStorage.setItem(productId, JSON.stringify(data))
+
+	// let foundProduct = productId.find(p => p.id == product.id)
+	// let productColor = color.find(p => p.color == colors.color)
+	// if (foundProduct && productColor != null){
+	// 	quantity++
+	// }else {
+	// 	localStorage.setItem(productId, JSON.stringify(data))
+	// }
 })
-
-
 
 
 

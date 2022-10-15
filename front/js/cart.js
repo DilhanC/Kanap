@@ -1,9 +1,19 @@
-const cart = []
+let productsArray = []
 
-const NumberOfItems = localStorage.length
+// Récupération données localStorage
+for (var i = 0; i < localStorage.length; i++) {
 
-for (let i = 0 ; i < NumberOfItems ; i++ ) {
-    const item = localStorage.getItem(localStorage.key(i))
-    const itemsObject = JSON.parse(item)
-    cart.push(itemsObject)
+    const products = localStorage.getItem(localStorage.key(i));
+    
+    const productObject = JSON.parse(products)
+    
+    productsArray.push(productObject)
+}
+
+/* La fonction renderStorage doit pouvoir afficher les informations 
+demandées dans la fonction pour chaque produit se trouvant dans l'array*/
+productsArray.forEach((product) => renderStorage(product))
+
+function renderStorage(product) {
+    // essayer juste d'afficher le localStorage
 }
