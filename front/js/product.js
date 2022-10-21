@@ -72,6 +72,7 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 		cart.push(cartItem);
 		localStorage.setItem('cart', JSON.stringify(cart))
 
+		
 		// let foundProduct = productId.find(p => p.id == product.id)
 		// let productColor = color.find(p => p.color == colors.color)
 		// if (foundProduct && productColor != null){
