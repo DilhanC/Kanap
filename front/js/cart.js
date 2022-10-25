@@ -1,16 +1,16 @@
 // Récupération données localStorage
 for (var i = 0; i < localStorage.length; i++) {
-	const cartItemJson = localStorage.getItem(localStorage.key(i));
+	const cartItemJson = localStorage.getItem(localStorage.key(i))
 	const cartItem = JSON.parse(cartItemJson)
 
 	// Récuperation autres données via l'API
 	fetch(`http://localhost:3000/api/products/${cartItem.id}`)
 	.then((res) => res.json())
 	.then((res) => {
-		let product = res;
+		let product = res
 
-		console.log(cartItem);
-		console.log(product);
+		console.log(cartItem)
+		console.log(product)
 
 		// Création éléments de la page
 		const section = document.querySelector("#cart__items")

@@ -46,8 +46,9 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 			alert("Veuillez selectionner une couleur ET une quantité pour ajouter le/les produits dans le panier")
 		}
 		// Get current cart
+		else {
 		let cart = [];
-		let cartJson = localStorage.getItem('cart');
+		let cartJson = localStorage.getItem('cart')
 		if(cartJson !== null) {
 			cart = JSON.parse(cartJson)
 		}
@@ -58,30 +59,21 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 			quantity: quantity,
 		}
 
-
-
-
 		let index = cart.findIndex(item => (item.color == cartItem.color && item.id == cartItem.id))
 		if(index === -1) {
-			console.log("pas déjà existant")
+			cart.push(cartItem);
+			localStorage.setItem('cart', JSON.stringify(cart))
 		}
 		else {
-			console.log("déjà existant")
+			index.quantity += quantity
 		}
-
-		cart.push(cartItem);
-		localStorage.setItem('cart', JSON.stringify(cart))
+		}
+		
 
 		
-		// let foundProduct = productId.find(p => p.id == product.id)
-		// let productColor = color.find(p => p.color == colors.color)
-		// if (foundProduct && productColor != null){
-		// 	quantity++
-		// }else {
-		// 	localStorage.setItem(productId, JSON.stringify(data))
-		// }
+		
 	})
 })
 .catch((err) => {
-	console.log(err);
+	console.log(err)
 });
