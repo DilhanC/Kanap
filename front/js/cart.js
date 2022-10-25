@@ -1,7 +1,14 @@
+// Get current cart
+let cart = [];
+let cartJson = localStorage.getItem('cart')
+if(cartJson !== null) {
+	cart = JSON.parse(cartJson)
+}
+
 // Récupération données localStorage
-for (var i = 0; i < localStorage.length; i++) {
-	const cartItemJson = localStorage.getItem(localStorage.key(i))
-	const cartItem = JSON.parse(cartItemJson)
+for(index in cart) {
+
+	cartItem = cart[index]
 
 	// Récuperation autres données via l'API
 	fetch(`http://localhost:3000/api/products/${cartItem.id}`)

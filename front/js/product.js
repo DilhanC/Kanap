@@ -45,33 +45,32 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 		if (color == null || color === "" || quantity == null || quantity == 0) {
 			alert("Veuillez selectionner une couleur ET une quantité pour ajouter le/les produits dans le panier")
 		}
-		// Get current cart
 		else {
-		let cart = [];
-		let cartJson = localStorage.getItem('cart')
-		if(cartJson !== null) {
-			cart = JSON.parse(cartJson)
-		}
-		// Add to localStorage
-		const cartItem = {
-			id: productId,
-			color: color,
-			quantity: quantity,
-		}
-
-		let index = cart.findIndex(item => (item.color == cartItem.color && item.id == cartItem.id))
-		if(index === -1) {
-			cart.push(cartItem);
+			// Get current cart
+			let cart = [];
+			let cartJson = localStorage.getItem('cart')
+			if(cartJson !== null) {
+				cart = JSON.parse(cartJson)
+			}
+			// Add to localStorage
+			const cartItem = {
+				id: productId,
+				color: color,
+				quantity: quantity,
+			}
+			// Find product in existing cart
+			let index = cart.findIndex(item => (item.color == cartItem.color && item.id == cartItem.id))
+			if(index === -1) {
+				// Not Found
+				cart.push(cartItem)
+			}
+			else {
+				// Found
+				cart[index].quantity = Number(cart[index].quantity) + Number(quantity);
+			}
+			// Save cart
 			localStorage.setItem('cart', JSON.stringify(cart))
 		}
-		else {
-			index.quantity += quantity
-		}
-		}
-		
-
-		
-		
 	})
 })
 .catch((err) => {
