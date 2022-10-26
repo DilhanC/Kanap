@@ -1,14 +1,11 @@
 // Get current cart
-let cart = [];
-let cartJson = localStorage.getItem('cart')
-if(cartJson !== null) {
-	cart = JSON.parse(cartJson)
-}
+
+let cart = JSON.parse(localStorage.getItem('cart'))
 
 // Récupération données localStorage
-for(index in cart) {
+for(i in cart) {
 
-	cartItem = cart[index]
+	let cartItem = cart[i]
 
 	// Récuperation autres données via l'API
 	fetch(`http://localhost:3000/api/products/${cartItem.id}`)
@@ -16,8 +13,8 @@ for(index in cart) {
 	.then((res) => {
 		let product = res
 
-		console.log(cartItem)
-		console.log(product)
+		// console.log(cartItem)
+		// console.log(product)
 
 		// Création éléments de la page
 		const section = document.querySelector("#cart__items")
@@ -52,14 +49,14 @@ for(index in cart) {
 		divQty.classList.add("cart__item__content__settings__quantity")
 
 		const pQty = document.createElement("p")
-		pQty.innerText = "Qté:" +" "
+		pQty.innerText = "Quantité:"
 
 		const inputQty = document.createElement("input")
 		inputQty.type = "number"
 		inputQty.classList.add("itemQuantity")
 		inputQty.name = "itempQuantity"
 		inputQty.min = "1"
-		inputQty.max = "100"
+		inputQty.max = "99"
 		inputQty.value = cartItem.quantity
 
 		const divDelete = document.createElement("div")
@@ -87,6 +84,30 @@ for(index in cart) {
 
 		divSettings.appendChild(divDelete)
 		divDelete.appendChild(pDelete)
+		
+		// TotalQty et TotalPrice
+		var totalQuantity = 0
+		var totalPrice = 0
+		totalQuantity += parseInt(cartItem.quantity)
+		totalPrice += parseInt(product.price * cartItem.quantity)
+
+		console.log(totalQuantity)
+		console.log(totalPrice)
+	
+		// document.getElementById("totalQuantity").innerHTML = totalQuantity
+		// document.getElementById("totalPrice").innerHTML = totalPrice
+
+		// Addition quantités et prix
+		const reducer = (accumulator, currentValue) => accumulator + currentValue
+    	const totalQuantityResult = totalQuantity.reduce(reducer, 0)
+
+		const totalPriceResult = totalPrice.reduce(reducer, 0);
+
+		console.log(totalQuantityResult)
+		console.log(totalPriceResult)
+		
+
+
 	})
 	.catch((err) => console.log(err))
 }
