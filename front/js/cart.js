@@ -7,21 +7,21 @@ for(i in cart) {
 
 	let cartItem = cart[i]
 
+	var totalQuantity = 0
+	var totalPrice = 0
+
 	// Récuperation autres données via l'API
 	fetch(`http://localhost:3000/api/products/${cartItem.id}`)
 	.then((res) => res.json())
 	.then((res) => {
 		let product = res
 
-		// console.log(cartItem)
-		// console.log(product)
-
 		// Création éléments de la page
 		const section = document.querySelector("#cart__items")
 
 		const article = document.createElement("article")
 		article.classList.add("cart__item")
-		article.dataset.id = product.id
+		article.dataset.id = cartItem.id
 		article.dataset.color = cartItem.color
 
 		const divImage = document.createElement("div")
@@ -86,27 +86,26 @@ for(i in cart) {
 		divDelete.appendChild(pDelete)
 		
 		// TotalQty et TotalPrice
-		var totalQuantity = 0
-		var totalPrice = 0
 		totalQuantity += parseInt(cartItem.quantity)
 		totalPrice += parseInt(product.price * cartItem.quantity)
-
-		console.log(totalQuantity)
-		console.log(totalPrice)
 	
-		// document.getElementById("totalQuantity").innerHTML = totalQuantity
-		// document.getElementById("totalPrice").innerHTML = totalPrice
+		document.getElementById("totalQuantity").innerHTML = totalQuantity
+		document.getElementById("totalPrice").innerHTML = totalPrice
 
-		// Addition quantités et prix
-		const reducer = (accumulator, currentValue) => accumulator + currentValue
-    	const totalQuantityResult = totalQuantity.reduce(reducer, 0)
-
-		const totalPriceResult = totalPrice.reduce(reducer, 0);
-
-		console.log(totalQuantityResult)
-		console.log(totalPriceResult)
-		
-
+		// Modification quantity
+		let inputs = document.querySelectorAll('.itemQuantity')
+		inputs.addEventListener("change", (event) => {
+			const inputValue = event.target.value
+			const dataId = event.target.getAttribute("data-id")
+			const dataColor = event.target.getAttribute("data-color")
+			
+			if (cartItem.id === dataId && cartItem.color === dataColor) {
+				cartItem.quantity = inputValue
+				localStorage.setItem('cart', JSON.stringify(newCart))
+				location.reload()
+			}
+			
+		})
 
 	})
 	.catch((err) => console.log(err))
