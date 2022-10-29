@@ -86,27 +86,49 @@ for(i in cart) {
 		divDelete.appendChild(pDelete)
 		
 		// TotalQty et TotalPrice
-		totalQuantity += parseInt(cartItem.quantity)
-		totalPrice += parseInt(product.price * cartItem.quantity)
+		totalQuantity += Number(cartItem.quantity)
+		totalPrice += Number(product.price * cartItem.quantity)
 	
 		document.getElementById("totalQuantity").innerHTML = totalQuantity
 		document.getElementById("totalPrice").innerHTML = totalPrice
 
 		// Modification quantity
 		let inputs = document.querySelectorAll('.itemQuantity')
-		inputs.addEventListener("change", (event) => {
-			const inputValue = event.target.value
-			const dataId = event.target.getAttribute("data-id")
-			const dataColor = event.target.getAttribute("data-color")
-			
-			if (cartItem.id === dataId && cartItem.color === dataColor) {
-				cartItem.quantity = inputValue
-				localStorage.setItem('cart', JSON.stringify(newCart))
+		for (let input of Array.from(inputs)) {
+			input.addEventListener("change", event => {
+				let indexId = event.target.getAttribute("data-id")
+				let indexColor = event.target.getAttribute("data-color")
+				let index = cart.findIndex(element => (element.id == indexId && element.color == indexColor))
+				if(index != -1) {
+				Number(cart[index].quantity) = Number(input.value)
+				localStorage.setItem("cart", JSON.stringify(cart))
 				location.reload()
-			}
-			
-		})
+				}
+			})
+		}
 
+		// Supprimer un élément
+		let buttons = document.querySelectorAll('.deleteItem')
+  		for (let button of Array.from(buttons)) {
+			button.addEventListener("click", event => {
+				let indexId = event.target.getAttribute("data-id")
+				let indexColor = event.target.getAttribute("data-color")
+				let index = cart.findIndex(element => (element.id == indexId && element.color == indexColor))
+				cart = cart.filter(cart => (!cart[index]))
+				localStorage.setItem("cart", JSON.stringify(cart))
+				location.reload()
+			})
+		}
 	})
 	.catch((err) => console.log(err))
 }
+
+// Envoi formulaire
+// let postToServer = fetch("http://localhost:3000/api/products/order", {
+// 	method: 'POST',
+// 	headers: {
+// 		'Accept': 'application/json', 
+// 		'Content-Type': 'application/json'
+// 	}
+	
+// }
