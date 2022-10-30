@@ -92,33 +92,25 @@ for(i in cart) {
 		document.getElementById("totalQuantity").innerHTML = totalQuantity
 		document.getElementById("totalPrice").innerHTML = totalPrice
 
+		
 		// Modification quantity
-		let inputs = document.querySelectorAll('.itemQuantity')
-		for (let input of Array.from(inputs)) {
-			input.addEventListener("change", event => {
-				let indexId = event.target.getAttribute("data-id")
-				let indexColor = event.target.getAttribute("data-color")
-				let index = cart.findIndex(element => (element.id == indexId && element.color == indexColor))
-				if(index != -1) {
-				Number(cart[index].quantity) = Number(input.value)
+		inputQty.addEventListener("change", event => {
+			let index = cart.findIndex(element => (element.id == cartItem.id && element.color == cartItem.color))
+			if(index != -1) {
+				cart[index].quantity = Number(inputQty.value)
 				localStorage.setItem("cart", JSON.stringify(cart))
 				location.reload()
-				}
-			})
-		}
+			}
+		})
+
 
 		// Supprimer un élément
-		let buttons = document.querySelectorAll('.deleteItem')
-  		for (let button of Array.from(buttons)) {
-			button.addEventListener("click", event => {
-				let indexId = event.target.getAttribute("data-id")
-				let indexColor = event.target.getAttribute("data-color")
-				let index = cart.findIndex(element => (element.id == indexId && element.color == indexColor))
-				cart = cart.filter(cart => (!cart[index]))
-				localStorage.setItem("cart", JSON.stringify(cart))
-				location.reload()
-			})
-		}
+		pDelete.addEventListener("click", event => {
+			let index = cart.findIndex(element => (element.id == cartItem.id && element.color == cartItem.color))
+			cart.splice(index, 1);
+			localStorage.setItem("cart", JSON.stringify(cart))
+			location.reload()
+		})
 	})
 	.catch((err) => console.log(err))
 }
