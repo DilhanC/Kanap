@@ -103,7 +103,6 @@ for(i in cart) {
 			}
 		})
 
-
 		// Supprimer un élément
 		pDelete.addEventListener("click", event => {
 			let index = cart.findIndex(element => (element.id == cartItem.id && element.color == cartItem.color))
@@ -115,12 +114,33 @@ for(i in cart) {
 	.catch((err) => console.log(err))
 }
 
+// Validité formulaire
+function inputValidity() {
+
+}
+
 // Envoi formulaire
-// let postToServer = fetch("http://localhost:3000/api/products/order", {
-// 	method: 'POST',
-// 	headers: {
-// 		'Accept': 'application/json', 
-// 		'Content-Type': 'application/json'
-// 	}
-	
-// }
+let button = document.querySelector("#order")
+button.addEventListener("click", function () {
+	if (inputValidity()) {
+		fetch("http://localhost:3000/api/products/order", {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json', 
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				contact: {
+					firstName: document.getElementById("firstName").value,
+					lastName: document.getElementById("lastName").value,
+					address: document.getElementById("address").value,
+					city: document.getElementById("city").value,
+					email: document.getElementById("email").value,
+					},
+				products: cart,
+			})	
+		})
+		window.location.href = "confirmation.html"
+		localStorage.clear()
+	}
+})
