@@ -115,28 +115,35 @@ for(i in cart) {
 }
 
 // Envoi formulaire
-let button = document.querySelector("#order")
-button.addEventListener("click", function (e) {
-		const result = fetch("http://localhost:3000/api/products/order", {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json', 
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				contact: {
-					firstName: document.getElementById("firstName").value,
-					lastName: document.getElementById("lastName").value,
-					address: document.getElementById("address").value,
-					city: document.getElementById("city").value,
-					email: document.getElementById("email").value,
-					},
-				products: cart,
-			})	
-		})
-		result.then((res) => res.json())
-		.then((res) => {
-			window.location.href = `confirmation.html?id=${res.orderId}`
-			// localStorage.clear()
-		})
+document.querySelector("#order").addEventListener("click", function (e) {
+	let valid = true
+	for (let input of document.querySelectorAll(".cart__order__form__question")) {
+		if (input.reportValidity() != valid) {
+			alert("Veuillez vérifier les informations du formulaire")
+		}
+		else {
+			const result = fetch("http://localhost:3000/api/products/order", {
+				method: 'POST',
+				headers: {
+					'Accept': 'application/json', 
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					contact: {
+						firstName: document.getElementById("firstName").value,
+						lastName: document.getElementById("lastName").value,
+						address: document.getElementById("address").value,
+						city: document.getElementById("city").value,
+						email: document.getElementById("email").value,
+						},
+					products: cart,
+				})	
+			})
+			result.then((res) => res.json())
+			.then((res) => {
+				window.location.href = `confirmation.html?id=${res.orderId}`
+				// localStorage.clear()
+			})
+		}
+	}
 })
