@@ -114,16 +114,10 @@ for(i in cart) {
 	.catch((err) => console.log(err))
 }
 
-// Validité formulaire
-function inputValidity() {
-
-}
-
 // Envoi formulaire
 let button = document.querySelector("#order")
-button.addEventListener("click", function () {
-	if (inputValidity()) {
-		fetch("http://localhost:3000/api/products/order", {
+button.addEventListener("click", function (e) {
+		const result = fetch("http://localhost:3000/api/products/order", {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json', 
@@ -140,7 +134,9 @@ button.addEventListener("click", function () {
 				products: cart,
 			})	
 		})
-		window.location.href = "confirmation.html"
-		localStorage.clear()
-	}
+		result.then((res) => res.json())
+		.then((res) => {
+			window.location.href = `confirmation.html?id=${res.orderId}`
+			// localStorage.clear()
+		})
 })
