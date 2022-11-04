@@ -22,19 +22,19 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 	const span = document.querySelector("#price")
 	if (span != null) span.textContent = price
 
-			// description
+	// description
 	const p = document.querySelector("#description")
 	if (p != null) p.textContent = description
 
-			//couleurs
+	//couleurs
 	const select = document.querySelector("#colors")
 	if (select != null) {
-			colors.forEach((color) => {
-					const option = document.createElement("option")
-					option.value = color
-					option.textContent = color
-					select.appendChild(option)
-			})
+		colors.forEach((color) => {
+			const option = document.createElement("option")
+			option.value = color
+			option.textContent = color
+			select.appendChild(option)
+		})
 	}
 
 	// Listening CLICK on cart button
@@ -52,6 +52,7 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 			if(cartJson !== null) {
 				cart = JSON.parse(cartJson)
 			}
+
 			// Add to localStorage
 			const cartItem = {
 				id: productId,

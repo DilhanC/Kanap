@@ -92,9 +92,8 @@ for(i in cart) {
 		document.getElementById("totalQuantity").innerHTML = totalQuantity
 		document.getElementById("totalPrice").innerHTML = totalPrice
 
-		
 		// Modification quantity
-		inputQty.addEventListener("change", event => {
+		inputQty.addEventListener("input", event => {
 			let index = cart.findIndex(element => (element.id == cartItem.id && element.color == cartItem.color))
 			if(index != -1) {
 				cart[index].quantity = Number(inputQty.value)
@@ -115,35 +114,106 @@ for(i in cart) {
 }
 
 // Envoi formulaire
-document.querySelector("#order").addEventListener("click", function (e) {
-	let valid = true
-	for (let input of document.querySelectorAll(".cart__order__form__question")) {
-		if (input.reportValidity() != valid) {
-			alert("Veuillez vérifier les informations du formulaire")
+document.querySelector("#order").addEventListener("click", function(event) {
+	event.preventDefault()
+	if(validateForm() === true) {
+		// On prépare le tableau d'IDs
+		let productsIds = []
+		for(i in cart) {
+			productsIds.push(cart[i].id)
 		}
-		else {
-			const result = fetch("http://localhost:3000/api/products/order", {
-				method: 'POST',
-				headers: {
-					'Accept': 'application/json', 
-					'Content-Type': 'application/json'
+
+		// On envoie la requête
+		fetch("http://localhost:3000/api/products/order", {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				contact: {
+					firstName: document.getElementById("firstName").value,
+					lastName: document.getElementById("lastName").value,
+					address: document.getElementById("address").value,
+					city: document.getElementById("city").value,
+					email: document.getElementById("email").value,
 				},
-				body: JSON.stringify({
-					contact: {
-						firstName: document.getElementById("firstName").value,
-						lastName: document.getElementById("lastName").value,
-						address: document.getElementById("address").value,
-						city: document.getElementById("city").value,
-						email: document.getElementById("email").value,
-						},
-					products: cart,
-				})	
+				products: productsIds,
 			})
-			result.then((res) => res.json())
-			.then((res) => {
-				window.location.href = `confirmation.html?id=${res.orderId}`
-				// localStorage.clear()
-			})
-		}
+		})
+		.then((res) => res.json())
+		.then((res) => {
+			console.log(res)
+			window.location.href = `confirmation.html?orderId=${res.orderId}`
+		})
+		.catch((err) => {
+			console.log(err)
+		});
 	}
 })
+
+function validateForm() {
+	let isValid = true
+
+	// Validation du firstName
+	let firstNameInput = document.getElementById('firstName')
+	let firstNameError = document.getElementById('firstNameErrorMsg')
+	let firstNameRegex = new RegExp("^[a-zA-ZÀ-ÿ ,'.-]+$")
+	if(firstNameRegex.test(firstNameInput.value)) {
+		firstNameError.textContent = ""
+	}
+	else {
+		firstNameError.textContent = "Le nom est invalide"
+		isValid = false
+	}
+
+	// Validation du lastName
+	let lastNameInput = document.getElementById('lastName')
+	let lastNameError = document.getElementById('lastNameErrorMsg')
+	let lastNameRegex = new RegExp("^[a-zA-ZÀ-ÿ ,'.-]+$")
+	if(lastNameRegex.test(lastNameInput.value)) {
+		lastNameError.textContent = ""
+	}
+	else {
+		lastNameError.textContent = "Le prénom est invalide"
+		isValid = false
+	}
+
+	// Validation du address
+	let adressInput = document.getElementById('address')
+	let adressError = document.getElementById('addressErrorMsg')
+	let adressRegex = new RegExp("^[0-9]{1,3}[a-zA-Zéêëèîïâäçù ,'-]+$")
+	if(adressRegex.test(adressInput.value)) {
+		adressError.textContent = ""
+	}
+	else {
+		adressError.textContent = "L'adresse est invalide"
+		isValid = false
+	}
+
+	// Validation du city
+	let cityInput = document.getElementById('city')
+	let cityError = document.getElementById('cityErrorMsg')
+	let cityRegex = new RegExp("^[a-zA-Z-éèà]+$")
+	if(cityRegex.test(cityInput.value)) {
+		cityError.textContent = ""
+	}
+	else {
+		cityError.textContent = "La ville est invalide"
+		isValid = false
+	}
+
+	// Validation du email
+	let emailInput = document.getElementById('email')
+	let emailError = document.getElementById('emailErrorMsg')
+	let emailRegEx = new RegExp("^[A-Za-z0-9._-]+@[A-Za-z0-9]+\.[A-Za-z]+$")
+	if(emailRegEx.test(emailInput.value)) {
+		emailError.textContent = ""
+	}
+	else {
+		emailError.textContent = "L'email est invalide"
+		isValid = false
+	}
+
+	return isValid
+}

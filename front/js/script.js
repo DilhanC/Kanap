@@ -1,7 +1,7 @@
 fetch("http://localhost:3000/api/products")
 .then((res) => res.json())
 .then((res) => {
-	let kanaps = res;
+	let kanaps = res
 	kanaps.forEach(kanaps => {
 		const {_id, imageUrl, altTxt, name, description} = kanaps
 
@@ -33,5 +33,5 @@ fetch("http://localhost:3000/api/products")
 	})
 })
 .catch((err) => {
-	console.log(err);
-});
+	console.log(err)
+})
