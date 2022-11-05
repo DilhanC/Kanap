@@ -71,6 +71,9 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 			}
 			// Save cart
 			localStorage.setItem('cart', JSON.stringify(cart))
+			if (confirm("Votre produit a bien été ajouté au panier, vous allez être redirigé vers le panier.")) {
+				open("cart.html")
+			}
 		}
 	})
 })
