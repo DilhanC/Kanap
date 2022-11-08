@@ -34,4 +34,7 @@ fetch("http://localhost:3000/api/products")
 })
 .catch((err) => {
 	console.log(err)
+	document.querySelector("h2").remove()
+	document.querySelector("h1").textContent = 'Aucun produit disponible à la vente'
 })
+

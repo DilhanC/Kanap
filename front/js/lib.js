@@ -1,13 +1,15 @@
-// function getCart() {
-//     let cart = JSON.parse(localStorage.getItem('cart'))
-// }
+function getCart() {
+    let cart = JSON.parse(localStorage.getItem('cart'))
+    return cart
+}
 
 
-// function saveCart(cart = []) {
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart))
+}
 
-// }
 
-
-// getUrlParam(paramName = '') {
-
-// }
+function getUrlParam() {
+    const paramName = new URLSearchParams(window.location.search)
+    return paramName
+}

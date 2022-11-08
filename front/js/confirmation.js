@@ -1,5 +1,5 @@
-const queryString = new URLSearchParams(window.location.search)
-const productId = queryString.get("orderId")
+getUrlParam()
+const productId = paramName.get("orderId")
 
 const orderId = document.getElementById('orderId')
 orderId.innerHTML = productId

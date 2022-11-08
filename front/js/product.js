@@ -1,5 +1,5 @@
-const queryString = new URLSearchParams(window.location.search)
-const productId = queryString.get("id")
+getUrlParam()
+const productId = paramName.get("id")
 
 fetch(`http://localhost:3000/api/products/${productId}`)
 .then((res) => res.json())
@@ -47,7 +47,7 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 		}
 		else {
 			// Get current cart
-			let cart = [];
+			let cart = []
 			let cartJson = localStorage.getItem('cart')
 			if(cartJson !== null) {
 				cart = JSON.parse(cartJson)
@@ -70,8 +70,10 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 				cart[index].quantity = Number(cart[index].quantity) + Number(quantity);
 			}
 			// Save cart
-			localStorage.setItem('cart', JSON.stringify(cart))
-			if (confirm("Votre produit a bien été ajouté au panier, vous allez être redirigé vers le panier.")) {
+			saveCart(cart = [])
+
+			// Redirection message
+			if (confirm("Votre produit a bien été ajouté au panier, voulez-vous être redirigé vers le panier ?")) {
 				open("cart.html")
 			}
 		}
@@ -79,4 +81,5 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 })
 .catch((err) => {
 	console.log(err)
-});
+
+})

@@ -1,6 +1,6 @@
 // Get current cart
 
-let cart = JSON.parse(localStorage.getItem('cart'))
+getCart()
 
 // Récupération données localStorage
 for(i in cart) {
