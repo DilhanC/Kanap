@@ -1,7 +1,9 @@
-getUrlParam()
-const productId = paramName.get("orderId")
-
-const orderId = document.getElementById('orderId')
-orderId.innerHTML = productId
-
-localStorage.removeItem("cart")
+const orderId = getUrlParam('orderId')
+if(orderId === '') {
+	document.querySelector(".confirmation").textContent = "Commande introuvable"
+}
+else {
+	const orderIdSpan = document.getElementById('orderId')
+	orderIdSpan.innerHTML = orderId
+	saveCart([])
+}
