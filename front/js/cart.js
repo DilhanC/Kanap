@@ -96,22 +96,24 @@ else {
 			document.getElementById("totalPrice").innerHTML = totalPrice
 
 			// Modification quantity
-			inputQty.addEventListener("input", event => {
-				let index = findProductFromCart(cartItem.id, cartItem.color)
-				if(index != -1) {
-					cart[index].quantity = Number(inputQty.value)
-					saveCart(cart)
-					location.reload()
-				}
-			})
+			updateProductQuantityFromCart(cartItem.id, cartItem.color, cartItem.quantity)
+			// inputQty.addEventListener("input", event => {
+			// 	let index = findProductFromCart(cartItem.id, cartItem.color)
+			// 	if(index != -1) {
+			// 		cart[index].quantity = Number(inputQty.value)
+			// 		saveCart(cart)
+			// 		location.reload()
+			// 	}
+			// })
 
 			// Supprimer un élément
-			pDelete.addEventListener("click", event => {
-				let index = findProductFromCart(cartItem.id, cartItem.color)
-				cart.splice(index, 1);
-				saveCart(cart)
-				location.reload()
-			})
+			deleteProductToCart(cartItem.id, cartItem.color)
+			// pDelete.addEventListener("click", event => {
+			// 	let index = findProductFromCart(cartItem.id, cartItem.color)
+			// 	cart.splice(index, 1);
+			// 	saveCart(cart)
+			// 	location.reload()
+			// })
 		})
 		.catch((err) => console.log(err))
 	}

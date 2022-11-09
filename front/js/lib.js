@@ -30,7 +30,7 @@ function findProductFromCart(productId = '', productColor = '') {
 	let index = cart.findIndex(element => (element.id == productId && element.color == productColor))
 
 	// Return index
-	return index;
+	return index
 }
 
 // Add a product in cart from localStorage
@@ -59,10 +59,26 @@ function addProductToCart(productId = '', productColor = '', quantity = 0) {
 
 // Delete a product in cart from localStorage
 function deleteProductToCart(productId = '', productColor = '') {
-
+	let pDelete = document.querySelector(".deleteItem")
+	pDelete.addEventListener("click", event => {
+		let index = findProductFromCart(productId, productColor)
+		let cart = getCart()
+		cart.splice(index, 1)
+		saveCart(cart)
+		location.reload()
+	})
 }
 
 // Update a product quantity in cart from localStorage
 function updateProductQuantityFromCart(productId = '', productColor = '', quantity = 0) {
-
+	let inputQty = document.querySelector(".itemQuantity")
+	inputQty.addEventListener("input", event => {
+		let index = findProductFromCart(productId, productColor)
+		let cart = getCart()
+		if(index != -1) {
+			cart[index].quantity = Number(inputQty.value)
+			saveCart(cart)
+			location.reload()
+		}
+	})
 }
