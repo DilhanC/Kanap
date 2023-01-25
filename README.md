@@ -4,12 +4,8 @@
 
 ## 📎 Projet 5 : Kanap
 
-
-
-![screenshot du site](front/images/screenshot/screenshotAccueil.jpg)  
-
-![screenshot du site](front/images/screenshot/screenshotPanier.jpg)
-
+![p5](https://user-images.githubusercontent.com/105727852/214625560-8d10d539-5940-4902-81a8-c7f564f51f57.jpg)
+![p5](https://user-images.githubusercontent.com/105727852/214625560-8d10d539-5940-4902-81a8-c7f564f51f57.jpg)
 
 
 ## Technologies :
