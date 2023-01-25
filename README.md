@@ -1,5 +1,11 @@
 # Kanap #
 
+
+
+![JS_array_tips](https://user-images.githubusercontent.com/105727852/214614654-6e2dbf11-6939-4a3b-856d-1c5fab446476.gif)
+
+
+
 This is the front end and back end server for Project 5 of the Web Developer path.
 
 ### Back end Prerequisites ###
