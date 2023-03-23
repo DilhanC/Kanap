@@ -1,8 +1,5 @@
-# Projet 4 de la Formation Développeur Web 
+# Projet 5 de la Formation Développeur Web 
 
-Optimisation d'un site web.
-SEO + référencement
+Création d'un site e-commerce avec Javascript.
 
-## La Panthère
-
-!(https://user-images.githubusercontent.com/105727852/214627878-702f3498-7d51-437e-9f57-9cd3b0dc6c38.jpg)
+!https://user-images.githubusercontent.com/105727852/214627878-702f3498-7d51-437e-9f57-9cd3b0dc6c38.jpg
